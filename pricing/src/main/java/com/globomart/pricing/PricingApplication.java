@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableCircuitBreaker
-@EnableHystrixDashboard
-@EnableDiscoveryClient
+//@EnableHystrixDashboard
+//@EnableDiscoveryClient
 public class PricingApplication {
 
 	public static void main(String[] args) {

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,6 +95,24 @@ public class PricingController {
 		product.setCode(code);
 		product.setPrice(price);
 		return new ResponseEntity<>(product, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/product/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+	ResponseEntity<Void> removeProduct(@PathVariable int id) {
+
+		pricingService.removeProductPrice(id);
+		logger.debug("ProductPrice removed for id = " + id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	ResponseEntity<Collection<ProductPrice>> retrieveAllProducts() {
+
+		Collection<ProductPrice> allProductsPrice = pricingService.retrieveAllProductsPrice();
+		logger.info("allProductsPrice size:" + allProductsPrice.size());
+
+		logger.debug("All Products retrieved.");
+		return new ResponseEntity<>(allProductsPrice, HttpStatus.OK);
 	}
 
 }
